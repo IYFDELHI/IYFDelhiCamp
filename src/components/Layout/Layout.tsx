@@ -6,9 +6,10 @@ import { ReactNode } from 'react';
 interface LayoutProps {
   children: ReactNode;
   onRegisterClick?: () => void;
+  isPopupOpen?: boolean;
 }
 
-export default function Layout({ children, onRegisterClick }: LayoutProps) {
+export default function Layout({ children, onRegisterClick, isPopupOpen }: LayoutProps) {
   return (
     <div className="flex flex-col min-h-screen">
       <Header onRegisterClick={onRegisterClick} />
@@ -16,7 +17,7 @@ export default function Layout({ children, onRegisterClick }: LayoutProps) {
         {children}
       </main>
       <Footer />
-      <StickyFooter onRegisterClick={onRegisterClick} />
+      <StickyFooter onRegisterClick={onRegisterClick} isPopupOpen={isPopupOpen} />
     </div>
   );
 }

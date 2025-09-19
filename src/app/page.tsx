@@ -11,7 +11,7 @@ export default function Home() {
   const { isPopupOpen, closePopup, openPopup } = useAutoPopup();
 
   return (
-    <Layout onRegisterClick={openPopup}>
+    <Layout onRegisterClick={openPopup} isPopupOpen={isPopupOpen}>
       <HeroSection onRegisterClick={openPopup} />
       
       {/* Moving Banner */}
