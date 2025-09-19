@@ -36,7 +36,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <RollingGallery autoplay={true} pauseOnHover={true} />
+        <RollingGallery autoplay={true} />
       </section>
 
       {/* Registration Popup */}

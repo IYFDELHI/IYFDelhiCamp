@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { UserPlus, Sparkles } from 'lucide-react';
+import { UserPlus } from 'lucide-react';
 
 interface StickyFooterProps {
   onRegisterClick?: () => void;
