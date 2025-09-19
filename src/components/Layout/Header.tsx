@@ -30,7 +30,6 @@ export default function Header({ onRegisterClick }: HeaderProps) {
   const navItems = [
     { href: '/', label: 'Home', icon: Home },
     { href: '/about', label: 'About', icon: Info },
-    { href: '/register', label: 'Register', icon: UserPlus },
     { href: '/gallery', label: 'Gallery', icon: ImageIcon },
   ];
 
