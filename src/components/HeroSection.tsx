@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, Users, Phone } from 'lucide-react';
 import Image from 'next/image';
-import PhotoSlider from './PhotoSlider';
 
 interface HeroSectionProps {
   onRegisterClick?: () => void;

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useAnimation, useTransform, PanInfo, ResolvedValues } from 'motion/react';
+import Image from 'next/image';
 
 // Local images from public/images/photos
 const LOCAL_IMGS: string[] = [
@@ -148,9 +149,11 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
               }}
             >
               <div className="relative overflow-hidden rounded-2xl shadow-2xl transition-all duration-500 ease-out group-hover:scale-110 group-hover:shadow-3xl">
-                <img
+                <Image
                   src={url}
                   alt={`Camp memory ${i + 1}`}
+                  width={320}
+                  height={200}
                   className="pointer-events-none h-[200px] w-[320px] object-cover transition-all duration-500 ease-out group-hover:brightness-110 sm:h-[160px] sm:w-[260px]"
                 />
                 {/* Overlay gradient for better visual appeal */}

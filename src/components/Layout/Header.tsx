@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Home, Info, UserPlus, Image as ImageIcon, Sparkles, Phone, Mail } from 'lucide-react';
-import Image from 'next/image';
 
 interface HeaderProps {
   onRegisterClick?: () => void;
