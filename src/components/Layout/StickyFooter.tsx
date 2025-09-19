@@ -5,9 +5,14 @@ import { UserPlus, Sparkles } from 'lucide-react';
 
 interface StickyFooterProps {
   onRegisterClick?: () => void;
+  isPopupOpen?: boolean;
 }
 
-export default function StickyFooter({ onRegisterClick }: StickyFooterProps) {
+export default function StickyFooter({ onRegisterClick, isPopupOpen }: StickyFooterProps) {
+  if (isPopupOpen) {
+    return null;
+  }
+
   return (
     <motion.div
       className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-emerald-600/95 via-teal-600/95 to-emerald-600/95 backdrop-blur-md border-t border-white/20 shadow-lg"

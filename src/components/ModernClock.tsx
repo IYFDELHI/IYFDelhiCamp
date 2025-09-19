@@ -17,8 +17,8 @@ const ModernClock = () => {
   ]);
 
   useEffect(() => {
-    // Set target date for Kartik Braj Camp 2025 (December 15, 2025)
-    const targetDate = new Date('2025-12-15T00:00:00').getTime();
+    // Set target date for Kartik Braj Camp 2025 (October 17, 2025)
+    const targetDate = new Date('2025-10-17T00:00:00').getTime();
 
     const updateCountdown = () => {
       const now = new Date().getTime();
@@ -58,80 +58,60 @@ const ModernClock = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6">
+    <div className="w-full max-w-4xl mx-auto p-4">
       <motion.div
-        className="bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-3xl p-8 shadow-2xl border border-gray-700"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
+        className="bg-white/60 backdrop-blur-lg rounded-3xl p-8 shadow-lg border border-white/40"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        viewport={{ once: true }}
       >
         <div className="text-center mb-8">
           <motion.h2
-            className="text-2xl md:text-3xl font-bold text-white mb-2"
+            className="text-2xl md:text-3xl font-bold text-emerald-800 mb-2"
             initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            viewport={{ once: true }}
           >
-            THE COUNTDOWN BEGINS
+            The Countdown Begins
           </motion.h2>
           <motion.p
-            className="text-gray-400 text-sm md:text-base"
+            className="text-emerald-600 text-sm md:text-base"
             initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            viewport={{ once: true }}
           >
-            Kartik Braj Camp 2025
+            To the most awaited spiritual event of the year
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {time.map((unit, index) => (
             <motion.div
               key={unit.label}
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index }}
+              className="text-center bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 shadow-inner border border-gray-100"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1 * index + 0.4, duration: 0.5 }}
+              viewport={{ once: true }}
             >
               <motion.div
-                className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-4 md:p-6 border border-gray-600 shadow-lg"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
+                className="text-4xl md:text-6xl font-bold text-saffron mb-1"
+                key={unit.value}
+                initial={{ y: 15, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
               >
-                <motion.div
-                  className="text-4xl md:text-6xl font-bold text-white mb-2 font-mono"
-                  key={unit.value}
-                  initial={{ scale: 1.2, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {formatNumber(unit.value)}
-                </motion.div>
-                <div className="text-gray-400 text-xs md:text-sm font-medium uppercase tracking-wider">
-                  {unit.label}
-                </div>
+                {formatNumber(unit.value)}
               </motion.div>
-              
-              {index < time.length - 1 && (
-                <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 text-gray-500 text-2xl font-bold">
-                  :
-                </div>
-              )}
+              <div className="text-emerald-700 text-xs md:text-sm font-medium uppercase tracking-wider">
+                {unit.label}
+              </div>
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          className="mt-8 text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-        >
-          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-saffron/20 to-sacred-orange/20 px-4 py-2 rounded-full border border-saffron/30">
-            <div className="w-2 h-2 bg-saffron rounded-full animate-pulse"></div>
-            <span className="text-saffron text-sm font-medium">Live Countdown</span>
-          </div>
-        </motion.div>
       </motion.div>
     </div>
   );

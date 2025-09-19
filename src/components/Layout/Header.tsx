@@ -217,7 +217,7 @@ export default function Header({ onRegisterClick }: HeaderProps) {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 bg-black/30 backdrop-blur-md z-40 lg:hidden"
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -232,9 +232,9 @@ export default function Header({ onRegisterClick }: HeaderProps) {
               animate="open"
               exit="closed"
             >
-              <div className="h-full glass-strong border-l-2 border-white/20 flex flex-col">
+              <div className="h-full bg-white/95 backdrop-blur-lg border-l border-gray-200/80 flex flex-col">
                 {/* Menu Header */}
-                <div className="flex items-center justify-between p-6 border-b border-white/20">
+                <div className="flex items-center justify-between p-6 border-b border-gray-200/80">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-saffron to-sacred-orange flex items-center justify-center">
                       <Sparkles className="w-4 h-4 text-white" />
@@ -244,14 +244,13 @@ export default function Header({ onRegisterClick }: HeaderProps) {
                       <p className="text-xs text-amber-600">Navigate with devotion</p>
                     </div>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
+                  <button
                     onClick={closeMenu}
-                    className="p-2 rounded-xl hover:bg-amber-50/50 border border-amber-200/30"
+                    className="p-2 rounded-full text-gray-500 hover:text-gray-800 hover:bg-gray-100 transition-all"
+                    aria-label="Close menu"
                   >
-                    <X className="w-5 h-5" />
-                  </Button>
+                    <X className="w-6 h-6" />
+                  </button>
                 </div>
 
                 {/* Menu Items */}
@@ -268,12 +267,12 @@ export default function Header({ onRegisterClick }: HeaderProps) {
                         <Link
                           href={item.href}
                           onClick={closeMenu}
-                          className="group flex items-center gap-4 p-4 rounded-2xl text-amber-800 hover:text-saffron hover:bg-amber-50/50 backdrop-blur-sm transition-all duration-300 font-medium border border-transparent hover:border-amber-200/30"
+                          className="group flex items-center gap-4 p-4 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200 font-medium"
                         >
-                          <div className="p-3 rounded-xl bg-gradient-to-br from-amber-100 to-orange-100 group-hover:from-amber-200 group-hover:to-orange-200 transition-all duration-300 shadow-sm">
+                          <div className="p-3 rounded-lg bg-gray-100 group-hover:bg-gray-200 transition-all duration-200">
                             <item.icon className="w-5 h-5 text-amber-600" />
                           </div>
-                          <span className="text-lg heading-primary">{item.label}</span>
+                          <span className="text-lg font-semibold">{item.label}</span>
                         </Link>
                       </motion.li>
                     ))}
@@ -281,7 +280,7 @@ export default function Header({ onRegisterClick }: HeaderProps) {
                 </nav>
 
                 {/* Menu Footer */}
-                <div className="p-6 border-t border-white/20 space-y-4">
+                <div className="p-6 border-t border-gray-200/80 space-y-4">
                   <motion.div
                     variants={itemVariants}
                     initial="closed"
@@ -307,12 +306,12 @@ export default function Header({ onRegisterClick }: HeaderProps) {
                     animate="open"
                     transition={{ delay: (navItems.length + 1) * 0.1 }}
                   >
-                    <p className="text-sm text-amber-600 text-accent">Need guidance?</p>
+                    <p className="text-sm text-gray-500">Need guidance?</p>
                     <div className="flex gap-2">
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        className="flex-1 text-amber-700 border-amber-200 hover:bg-amber-50 rounded-xl"
+                        className="flex-1 text-gray-700 border-gray-200 hover:bg-gray-100 rounded-lg"
                       >
                         <Phone className="w-4 h-4 mr-2" />
                         Call
@@ -320,7 +319,7 @@ export default function Header({ onRegisterClick }: HeaderProps) {
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        className="flex-1 text-amber-700 border-amber-200 hover:bg-amber-50 rounded-xl"
+                        className="flex-1 text-gray-700 border-gray-200 hover:bg-gray-100 rounded-lg"
                       >
                         <Mail className="w-4 h-4 mr-2" />
                         Email
