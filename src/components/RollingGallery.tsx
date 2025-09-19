@@ -18,18 +18,17 @@ const LOCAL_IMGS: string[] = [
 
 interface RollingGalleryProps {
   autoplay?: boolean;
-  pauseOnHover?: boolean;
   images?: string[];
 }
 
 const RollingGallery: React.FC<RollingGalleryProps> = ({ 
   autoplay = true, 
-  pauseOnHover = true, 
   images = [] 
 }) => {
   const galleryImages = images.length > 0 ? images : LOCAL_IMGS;
 
   const [isScreenSizeSm, setIsScreenSizeSm] = useState<boolean>(false);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
   
   useEffect(() => {
     const handleResize = () => setIsScreenSizeSm(window.innerWidth <= 640);
@@ -54,7 +53,7 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
     controls.start({
       rotateY: [startAngle, startAngle - 360],
       transition: {
-        duration: 25, // Slower for smoother animation
+        duration: 15, // Faster animation
         ease: 'linear',
         repeat: Infinity
       }
@@ -62,14 +61,14 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
   };
 
   useEffect(() => {
-    if (autoplay) {
+    if (autoplay && !isPaused) {
       const currentAngle = rotation.get();
       startInfiniteSpin(currentAngle);
     } else {
       controls.stop();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoplay]);
+  }, [autoplay, isPaused]);
 
   const handleUpdate = (latest: ResolvedValues) => {
     if (typeof latest.rotateY === 'number') {
@@ -85,22 +84,13 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
   const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo): void => {
     const finalAngle = rotation.get() + info.velocity.x * dragFactor * 0.1; // Reduced velocity impact
     rotation.set(finalAngle);
-    if (autoplay) {
+    if (autoplay && !isPaused) {
       startInfiniteSpin(finalAngle);
     }
   };
 
-  const handleMouseEnter = (): void => {
-    if (autoplay && pauseOnHover) {
-      controls.stop();
-    }
-  };
-
-  const handleMouseLeave = (): void => {
-    if (autoplay && pauseOnHover) {
-      const currentAngle = rotation.get();
-      startInfiniteSpin(currentAngle);
-    }
+  const handleClick = () => {
+    setIsPaused(!isPaused);
   };
 
   return (
@@ -127,8 +117,7 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
           dragConstraints={{ left: 0, right: 0 }}
           onDrag={handleDrag}
           onDragEnd={handleDragEnd}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
           animate={controls}
           onUpdate={handleUpdate}
           style={{
@@ -169,7 +158,7 @@ const RollingGallery: React.FC<RollingGalleryProps> = ({
       {/* Instructions text */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center">
         <p className="text-emerald-600 text-sm font-medium opacity-70">
-          Drag to explore • Hover to pause
+          Drag to explore • Click to pause
         </p>
       </div>
     </div>

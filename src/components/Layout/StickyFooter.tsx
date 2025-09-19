@@ -21,23 +21,8 @@ export default function StickyFooter({ onRegisterClick, isPopupOpen }: StickyFoo
       transition={{ duration: 0.5, delay: 1 }}
     >
       <div className="container mx-auto px-4 py-3">
-        <div className="flex items-center justify-between">
-          {/* Left side - Event info */}
-          <div className="hidden sm:flex items-center space-x-3">
-            <motion.div
-              className="w-8 h-8 rounded-full bg-gradient-to-br from-saffron to-sacred-orange flex items-center justify-center"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-            >
-              <Sparkles className="w-4 h-4 text-white" />
-            </motion.div>
-            <div>
-              <p className="text-white font-semibold text-sm">Kartik Braj Camp 2025</p>
-              <p className="text-emerald-100 text-xs">October 17-19, 2025</p>
-            </div>
-          </div>
-
-          {/* Center/Right - Registration Button */}
+        <div className="flex items-center justify-center">
+          {/* Centered Registration Button */}
           <div className="flex items-center space-x-4">
             <motion.button
               onClick={onRegisterClick}
