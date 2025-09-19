@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Calendar, MapPin, Phone, Users, Clock, Star, Sparkles, Heart, ArrowRight } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function PosterSection() {
@@ -279,7 +278,7 @@ export default function PosterSection() {
           viewport={{ once: true }}
         >
           <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-emerald-900 mb-4 heading-display">
-            Sacred Places We'll Visit
+            Sacred Places We&apos;ll Visit
           </h3>
           <p className="text-center text-emerald-700 text-lg mb-12 max-w-2xl mx-auto text-body">
             Journey through the most revered locations in Braj, each holding centuries of spiritual significance
@@ -287,7 +286,7 @@ export default function PosterSection() {
           
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8">
             {[
-              { name: 'Gokul', description: 'Krishna\'s childhood home' },
+              { name: 'Gokul', description: 'Krishna&apos;s childhood home' },
               { name: 'Bhandir Van', description: 'Sacred forest grove' },
               { name: 'Belvan', description: 'Divine pastimes location' },
               { name: 'Ras Khali Samadhi', description: 'Meditation sanctuary' },

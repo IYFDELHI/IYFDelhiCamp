@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { MapPin, Star, Heart, Sparkles } from 'lucide-react';
-import Image from 'next/image';
 
 const sacredPlaces = [
   {
@@ -136,7 +135,7 @@ export default function SacredPlaces() {
             </h3>
             <p className="text-slate-600 mb-6">
               Join our guided pilgrimage to these sacred places and immerse yourself in the 
-              spiritual atmosphere where Krishna's divine pastimes continue eternally.
+              spiritual atmosphere where Krishna&apos;s divine pastimes continue eternally.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <div className="flex items-center gap-2 text-sm text-slate-600">
