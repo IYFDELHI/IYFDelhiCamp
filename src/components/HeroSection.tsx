@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, Users, Phone } from 'lucide-react';
 import Image from 'next/image';
-import { FadeIn } from './OptimizedMotion';
 
 interface HeroSectionProps {
   onRegisterClick?: () => void;
