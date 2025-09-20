@@ -1,9 +1,11 @@
 import Layout from '@/components/Layout/Layout';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 export default function About() {
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12">
+      <ErrorBoundary>
+        <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-16 pt-8">
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-emerald-700 via-teal-800 to-emerald-900 bg-clip-text text-transparent mb-6">
             About Our Braj Camps
@@ -97,7 +99,8 @@ export default function About() {
             </div>
           </div>
         </div>
-      </div>
+        </div>
+      </ErrorBoundary>
     </Layout>
   );
 }

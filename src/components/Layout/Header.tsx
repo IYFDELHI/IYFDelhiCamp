@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Menu, X, Home, Info, UserPlus, Image as ImageIcon, Sparkles, Phone, Mail } from 'lucide-react';
+import { Menu, X, Home, UserPlus, Image as ImageIcon, Sparkles } from 'lucide-react';
 
 interface HeaderProps {
-  onRegisterClick?: () => void;
+  onRegisterClick?: (() => void) | undefined;
 }
 
 export default function Header({ onRegisterClick }: HeaderProps) {
@@ -29,8 +29,7 @@ export default function Header({ onRegisterClick }: HeaderProps) {
 
   const navItems = [
     { href: '/', label: 'Home', icon: Home },
-    { href: '/about', label: 'About', icon: Info },
-    { href: '/gallery', label: 'Gallery', icon: ImageIcon },
+    { href: 'https://delhiiyf.blogspot.com/', label: 'Gallery', icon: ImageIcon, external: true },
   ];
 
   const menuVariants = {
@@ -115,11 +114,18 @@ export default function Header({ onRegisterClick }: HeaderProps) {
                   onClick={closeMenu}
                 >
                   <motion.div
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-saffron to-sacred-orange flex items-center justify-center shadow-lg"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
+                    className="w-10 h-10 rounded-full overflow-hidden shadow-lg border-2 border-white/20"
+                    whileHover={{ rotate: 5 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <Sparkles className="w-5 h-5 text-white" />
+                    <Image
+                      src="/images/logo.jpg"
+                      alt="ISKCON Youth Forum Logo"
+                      width={40}
+                      height={40}
+                      className="w-full h-full object-cover"
+                      priority
+                    />
                   </motion.div>
                   <div className="flex flex-col">
                     <span className="text-xl font-bold heading-display bg-gradient-to-r from-saffron via-sacred-orange to-amber-600 bg-clip-text text-transparent group-hover:from-amber-500 group-hover:to-saffron transition-all duration-300">
@@ -142,28 +148,48 @@ export default function Header({ onRegisterClick }: HeaderProps) {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
                     >
-                      <Link 
-                        href={item.href} 
-                        className="group relative text-amber-800 hover:text-saffron transition-all duration-300 font-medium px-4 py-3 rounded-2xl hover:bg-amber-50/50 backdrop-blur-sm"
-                      >
-                        <span className="flex items-center gap-2 text-sm">
-                          <item.icon className="w-4 h-4 transition-transform group-hover:scale-110" />
-                          <span className="heading-primary">{item.label}</span>
-                        </span>
-                        <motion.span 
-                          className="absolute inset-x-2 bottom-1 h-0.5 bg-gradient-to-r from-saffron to-sacred-orange rounded-full"
-                          initial={{ scaleX: 0 }}
-                          whileHover={{ scaleX: 1 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                      </Link>
+                      {item.external ? (
+                        <a 
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group relative text-amber-800 hover:text-saffron transition-all duration-300 font-medium px-4 py-3 rounded-2xl hover:bg-amber-50/50 backdrop-blur-sm"
+                        >
+                          <span className="flex items-center gap-2 text-sm">
+                            <item.icon className="w-4 h-4 transition-transform group-hover:scale-110" />
+                            <span className="heading-primary">{item.label}</span>
+                          </span>
+                          <motion.span 
+                            className="absolute inset-x-2 bottom-1 h-0.5 bg-gradient-to-r from-saffron to-sacred-orange rounded-full"
+                            initial={{ scaleX: 0 }}
+                            whileHover={{ scaleX: 1 }}
+                            transition={{ duration: 0.3 }}
+                          />
+                        </a>
+                      ) : (
+                        <Link 
+                          href={item.href} 
+                          className="group relative text-amber-800 hover:text-saffron transition-all duration-300 font-medium px-4 py-3 rounded-2xl hover:bg-amber-50/50 backdrop-blur-sm"
+                        >
+                          <span className="flex items-center gap-2 text-sm">
+                            <item.icon className="w-4 h-4 transition-transform group-hover:scale-110" />
+                            <span className="heading-primary">{item.label}</span>
+                          </span>
+                          <motion.span 
+                            className="absolute inset-x-2 bottom-1 h-0.5 bg-gradient-to-r from-saffron to-sacred-orange rounded-full"
+                            initial={{ scaleX: 0 }}
+                            whileHover={{ scaleX: 1 }}
+                            transition={{ duration: 0.3 }}
+                          />
+                        </Link>
+                      )}
                     </motion.li>
                   ))}
                   <motion.li
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: navItems.length * 0.1 }}
-                    className="ml-4"
+                    className="ml-4 lg:hidden"
                   >
                     <button onClick={onRegisterClick} className="btn-sacred px-6 py-3 text-sm rounded-2xl shadow-lg">
                       <UserPlus className="w-4 h-4 mr-2" />
@@ -231,7 +257,7 @@ export default function Header({ onRegisterClick }: HeaderProps) {
               animate="open"
               exit="closed"
             >
-              <div className="h-full bg-white/95 backdrop-blur-lg border-l border-gray-200/80 flex flex-col">
+              <div className="h-full bg-white/95 backdrop-blur-lg border-l border-gray-200/80 flex flex-col rounded-l-3xl">
                 {/* Menu Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-200/80">
                   <div className="flex items-center space-x-3">
@@ -263,69 +289,35 @@ export default function Header({ onRegisterClick }: HeaderProps) {
                         animate="open"
                         transition={{ delay: index * 0.1 }}
                       >
-                        <Link
-                          href={item.href}
-                          onClick={closeMenu}
-                          className="group flex items-center gap-4 p-4 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200 font-medium"
-                        >
-                          <div className="p-3 rounded-lg bg-gray-100 group-hover:bg-gray-200 transition-all duration-200">
-                            <item.icon className="w-5 h-5 text-amber-600" />
-                          </div>
-                          <span className="text-lg font-semibold">{item.label}</span>
-                        </Link>
+                        {item.external ? (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={closeMenu}
+                            className="group flex items-center gap-4 p-4 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200 font-medium"
+                          >
+                            <div className="p-3 rounded-lg bg-gray-100 group-hover:bg-gray-200 transition-all duration-200">
+                              <item.icon className="w-5 h-5 text-amber-600" />
+                            </div>
+                            <span className="text-lg font-semibold">{item.label}</span>
+                          </a>
+                        ) : (
+                          <Link
+                            href={item.href}
+                            onClick={closeMenu}
+                            className="group flex items-center gap-4 p-4 rounded-xl text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200 font-medium"
+                          >
+                            <div className="p-3 rounded-lg bg-gray-100 group-hover:bg-gray-200 transition-all duration-200">
+                              <item.icon className="w-5 h-5 text-amber-600" />
+                            </div>
+                            <span className="text-lg font-semibold">{item.label}</span>
+                          </Link>
+                        )}
                       </motion.li>
                     ))}
                   </ul>
                 </nav>
-
-                {/* Menu Footer */}
-                <div className="p-6 border-t border-gray-200/80 space-y-4">
-                  <motion.div
-                    variants={itemVariants}
-                    initial="closed"
-                    animate="open"
-                    transition={{ delay: navItems.length * 0.1 }}
-                  >
-                    <button 
-                      onClick={() => {
-                        onRegisterClick?.();
-                        closeMenu();
-                      }}
-                      className="btn-sacred w-full py-4 text-base rounded-2xl text-center block shadow-lg"
-                    >
-                      <UserPlus className="w-5 h-5 mr-2 inline" />
-                      Join Our Sacred Journey
-                    </button>
-                  </motion.div>
-                  
-                  <motion.div 
-                    className="text-center space-y-3"
-                    variants={itemVariants}
-                    initial="closed"
-                    animate="open"
-                    transition={{ delay: (navItems.length + 1) * 0.1 }}
-                  >
-                    <p className="text-sm text-gray-500">Need guidance?</p>
-                    <div className="flex gap-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="flex-1 text-gray-700 border-gray-200 hover:bg-gray-100 rounded-lg"
-                      >
-                        <Phone className="w-4 h-4 mr-2" />
-                        Call
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="flex-1 text-gray-700 border-gray-200 hover:bg-gray-100 rounded-lg"
-                      >
-                        <Mail className="w-4 h-4 mr-2" />
-                        Email
-                      </Button>
-                    </div>
-                  </motion.div>
-                </div>
               </div>
             </motion.div>
           </>

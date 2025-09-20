@@ -1,12 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Heart, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Heart, Mail, Phone } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="relative bg-gradient-to-br from-emerald-900 via-teal-800 to-emerald-800 text-white overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-orange-900 via-amber-800 to-orange-800 text-white overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -14,126 +13,47 @@ export default function Footer() {
         }} />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
-        <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-          
-          {/* Brand Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center md:text-left"
-          >
-            <h3 className="text-2xl font-bold mb-4 text-emerald-200">
-              ISKCON Youth Forum
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 relative z-10">
+        <div className="text-center space-y-4">
+          {/* Camp Query Section */}
+          <div className="mb-4">
+            <h3 className="text-lg md:text-xl font-semibold text-orange-100 mb-3">
+              Camp Queries & Information
             </h3>
-            <p className="text-emerald-100 mb-6 leading-relaxed">
-              Connecting young hearts with Krishna consciousness through spiritual camps and community service.
-            </p>
-            
-            {/* Social Media */}
-            <div className="flex justify-center md:justify-start space-x-4">
-              {[
-                { icon: Facebook, href: '#', color: 'hover:text-blue-300' },
-                { icon: Instagram, href: '#', color: 'hover:text-pink-300' },
-                { icon: Youtube, href: '#', color: 'hover:text-red-300' },
-              ].map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.href}
-                  className={`p-3 rounded-xl bg-white/10 backdrop-blur-sm text-emerald-200 ${social.color} transition-all duration-300 border border-white/20`}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <social.icon className="w-5 h-5" />
-                </motion.a>
-              ))}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm md:text-base">
+              <a 
+                href="tel:+919643958303" 
+                className="flex items-center gap-2 text-orange-200 hover:text-white transition-colors duration-300"
+              >
+                <Phone className="w-4 h-4" />
+                <span>+91 9643958303</span>
+              </a>
+              <a 
+                href="mailto:gaurangagovindaked@gmail.com" 
+                className="flex items-center gap-2 text-orange-200 hover:text-white transition-colors duration-300"
+              >
+                <Mail className="w-4 h-4" />
+                <span>gaurangagovindaked@gmail.com</span>
+              </a>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-center md:text-left"
-          >
-            <h4 className="text-xl font-semibold mb-6 text-emerald-200 flex items-center justify-center md:justify-start">
-              <Heart className="w-5 h-5 mr-2 text-orange-400" />
-              Quick Links
-            </h4>
-            <ul className="space-y-3">
-              {[
-                { href: '/', label: 'Home' },
-                { href: '/register', label: 'Register for Camp' },
-                { href: '/gallery', label: 'Photo Gallery' },
-                { href: '/contact', label: 'Contact Us' },
-              ].map((link) => (
-                <li key={link.href}>
-                  <Link 
-                    href={link.href} 
-                    className="text-emerald-100 hover:text-emerald-50 transition-all duration-300 hover:translate-x-1 inline-block"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+          {/* Divider */}
+          <div className="w-24 h-px bg-gradient-to-r from-transparent via-orange-300/50 to-transparent mx-auto"></div>
 
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center md:text-left"
+          {/* Made with Love Section */}
+          <motion.div 
+            className="flex items-center justify-center gap-2 text-orange-200"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
           >
-            <h4 className="text-xl font-semibold mb-6 text-emerald-200 flex items-center justify-center md:justify-start">
-              <MapPin className="w-5 h-5 mr-2 text-orange-400" />
-              Contact Us
-            </h4>
-            <div className="space-y-4">
-              <div className="flex items-center justify-center md:justify-start space-x-3">
-                <Phone className="w-4 h-4 text-orange-400" />
-                <span className="text-emerald-100">+91 98765 43210</span>
-              </div>
-              
-              <div className="flex items-center justify-center md:justify-start space-x-3">
-                <Mail className="w-4 h-4 text-orange-400" />
-                <a 
-                  href="mailto:info@iskonyouthforum.org" 
-                  className="text-emerald-100 hover:text-emerald-50 transition-colors"
-                >
-                  info@iskonyouthforum.org
-                </a>
-              </div>
-              
-              <div className="flex items-start justify-center md:justify-start space-x-3">
-                <MapPin className="w-4 h-4 text-orange-400 mt-1" />
-                <div className="text-emerald-100">
-                  <p>ISKCON Temple</p>
-                  <p>Braj Region, India</p>
-                </div>
-              </div>
-            </div>
+            <span className="text-sm md:text-base">Made with</span>
+            <Heart className="w-4 h-4 text-red-400 animate-pulse" />
+            <span className="text-sm md:text-base">by</span>
+            <span className="font-semibold text-orange-100">ISKCON Youth Forum Delhi</span>
           </motion.div>
         </div>
-
-        {/* Bottom Section */}
-        <motion.div
-          className="border-t border-emerald-700/50 mt-12 pt-8 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-emerald-200 text-sm">
-            © 2025 ISKCON Youth Forum. All rights reserved. | Hare Krishna 🙏
-          </p>
-        </motion.div>
       </div>
     </footer>
   );

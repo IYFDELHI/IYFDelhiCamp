@@ -1,4 +1,6 @@
 import PhotoGallery from '@/components/PhotoGallery';
+import Layout from '@/components/Layout/Layout';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 const galleryImages = [
   {
@@ -59,18 +61,22 @@ const galleryImages = [
 
 export default function GalleryPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-emerald-800 mb-4">
-            Photo Gallery
-          </h1>
-          <p className="text-lg text-emerald-600 max-w-2xl mx-auto">
-            Explore moments from our spiritual journey and community gatherings
-          </p>
+    <Layout>
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-emerald-800 mb-4">
+              Photo Gallery
+            </h1>
+            <p className="text-lg text-emerald-600 max-w-2xl mx-auto">
+              Explore moments from our spiritual journey and community gatherings
+            </p>
+          </div>
+          <ErrorBoundary>
+            <PhotoGallery images={galleryImages} />
+          </ErrorBoundary>
         </div>
-        <PhotoGallery images={galleryImages} />
       </div>
-    </div>
+    </Layout>
   );
 }

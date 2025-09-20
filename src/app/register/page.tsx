@@ -2,39 +2,7 @@
 
 import { useState } from 'react';
 import Layout from '@/components/Layout/Layout';
-
-// Define the Razorpay options type
-interface RazorpayOptions {
-  key: string | undefined;
-  amount: number;
-  currency: string;
-  name: string;
-  description: string;
-  order_id: string;
-  handler: (response: {
-    razorpay_order_id: string;
-    razorpay_payment_id: string;
-    razorpay_signature: string;
-  }) => void;
-  prefill: {
-    name: string;
-    email: string;
-    contact: string;
-  };
-  theme: {
-    color: string;
-  };
-}
-
-declare global {
-  interface Window {
-    Razorpay: {
-      new (options: RazorpayOptions): {
-        open: () => void;
-      };
-    };
-  }
-}
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -53,83 +21,27 @@ export default function Register() {
     }
 
     try {
-      // Create order on backend
-      const response = await fetch('/api/razorpay', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: 250000, // ₹2500 in paise
-          currency: 'INR'
-        })
-      });
-
-      const order = await response.json();
-
-      if (!order.id) {
-        throw new Error('Failed to create order');
+      // Create URL parameters with form data
+      const roomPaymentUrl = process.env.NEXT_PUBLIC_ROOM_PAYMENT_PAGE;
+      if (roomPaymentUrl) {
+        window.location.href = `${roomPaymentUrl}?prefill[name]=${encodeURIComponent(formData.name)}&prefill[email]=${encodeURIComponent(formData.email)}&prefill[contact]=${encodeURIComponent(formData.phone)}`;
+      } else {
+        alert('Payment link not configured. Please contact admin.');
       }
-
-      const options: RazorpayOptions = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: order.amount,
-        currency: order.currency,
-        name: 'ISKON Youth Forum',
-        description: 'Braj Camp Registration',
-        order_id: order.id,
-        handler: async function (response: { 
-          razorpay_order_id: string; 
-          razorpay_payment_id: string; 
-          razorpay_signature: string; 
-        }) {
-          // Verify payment on backend
-          const verifyResponse = await fetch('/api/verify-payment', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            })
-          });
-          
-          const verification = await verifyResponse.json();
-          
-          if (verification.success) {
-            alert('Payment successful! Registration completed.');
-            // Here you would typically save the user data to your database
-          } else {
-            alert('Payment verification failed!');
-          }
-        },
-        prefill: {
-          name: formData.name,
-          email: formData.email,
-          contact: formData.phone
-        },
-        theme: {
-          color: '#2e7d6c'
-        }
-      };
-
-      const rzp = new window.Razorpay(options);
-      rzp.open();
     } catch (error) {
-      console.error('Payment error:', error);
-      alert('Something went wrong with the payment. Please try again.');
+      console.error('Registration error:', error);
+      alert('Something went wrong with the registration. Please try again.');
     }
   };
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12 max-w-2xl">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-emerald-900 mb-4">Register for Braj Camp</h1>
-          <p className="text-emerald-700">Join us for a transformative experience in the sacred lands of Braj</p>
-        </div>
+      <ErrorBoundary>
+        <div className="container mx-auto px-4 py-12 max-w-2xl">
+          <div className="text-center mb-10">
+            <h1 className="text-3xl font-bold text-emerald-900 mb-4">Register for Braj Camp</h1>
+            <p className="text-emerald-700">Join us for a transformative experience in the sacred lands of Braj</p>
+          </div>
         
         <div className="premium-card glass border border-emerald-100/30">
           <div className="form-group">
@@ -207,6 +119,7 @@ export default function Register() {
           </div>
         </div>
       </div>
+      </ErrorBoundary>
     </Layout>
   );
 }

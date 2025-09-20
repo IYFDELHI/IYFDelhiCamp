@@ -5,8 +5,8 @@ import { ReactNode } from 'react';
 
 interface LayoutProps {
   children: ReactNode;
-  onRegisterClick?: () => void;
-  isPopupOpen?: boolean;
+  onRegisterClick?: (() => void) | undefined;
+  isPopupOpen?: boolean | undefined;
 }
 
 export default function Layout({ children, onRegisterClick, isPopupOpen }: LayoutProps) {
